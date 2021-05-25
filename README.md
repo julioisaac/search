@@ -24,12 +24,12 @@ $ mvn clean install
 ```
 ### Configurando
 
-No arquivo ```scripts/setenv.sh```, configure o path dos arquivos de texto e o path onde será salvo o índice resmissivo.
+No arquivo ```scripts/setenv.sh```, configure as variáveis de ambiente ```ORIGIN_DATA_PATH``` com o caminho dos arquivos a serem processados e ```SEARCH_INDEX_PATH``` com o caminho onde será salvo o índice resmissivo.
 
 ```shell
 # Exemplo
 export ORIGIN_DATA_PATH=/Users/julioisaac/data
-export SEARCH_INDEX_PATH=/var/lib/search/data/
+export SEARCH_INDEX_PATH=/var/lib/search/data
 ```
 
 ### Usando
