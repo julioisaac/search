@@ -2,34 +2,48 @@
 
 Biblioteca Java para sumarização de arquivos texto e busca por termos.
 
-## Pre requisitos
+### Sobre
 
-- Docker instalado
-- Maven instalado
+Desafio proposto pelo time de busca do luizalabs
 
-## Instalação
+### Pré-requisitos
 
-Clonar o repositório https://github.com/julioisaac/search.git
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Java_11](https://www.java.com/), [Maven](https://maven.apache.org/).
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+### Instalando
 
 ```bash
-Docker
+# Clone este repositório
+$ git clone <https://github.com/julioisaac/search.git>
+
+# Acesse a pasta do projeto
+$ cd search
+
+# Rodando os testes
+$ mvn test
+
+# Construindo e empacotando as aplicações
+$ mvn clean install
+
+# Execute o shell script para indexar os arquivos
+$ ./scripts/index.sh
 ```
 
 
-## Uso
+### Usando
 
-```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+#### Sumarizando
+```bash
+# Execute o shell script para sumarizar os arquivos
+$ ./scripts/index.sh
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+#### Buscando
 
-Please make sure to update tests as appropriate.
+```bash
+# Execute o shell script passando algum termo para buscar.
+$ ./scripts/search.sh "walt disney"
+```
+
 
