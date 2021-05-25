@@ -21,12 +21,16 @@ public class Indexer {
             System.exit(1);
         }
 
+        logger.log(Level.INFO, "Iniciando processadores de dados");
         Text texts = new Text(paths);
         List<Processor> processors = new ArrayList<>();
         processors.add(new TxtProcessor(texts));
 
+        logger.log(Level.INFO, "Criando índices em memória");
         HandleProcessors.run(processors);
+        logger.log(Level.INFO, "Gravando índices no disco");
         HandleProcessors.writeIdx();
+        logger.log(Level.INFO, "DONE!");
     }
 
 }
