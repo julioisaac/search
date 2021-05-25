@@ -13,7 +13,7 @@ public class IOIndexUtil {
 
     private static final Logger logger = Logger.getLogger(IOIndexUtil.class.getName());
     private static final String IDX_PATH = System.getenv("SEARCH_INDEX_PATH");
-    private static final String IDX_NAME = "remissiveIndex.dat";
+    private static final String IDX_NAME = "/remissiveIndex.dat";
 
     public static void writeBinary(Map<String, List<String>> remissiveIndex) {
         File dirPath = new File(IDX_PATH);
