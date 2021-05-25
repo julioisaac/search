@@ -1,4 +1,4 @@
-package br.com.luizalabs.indexing.utils;
+package br.com.luizalabs.index.utils;
 
 public class ProcessorUtil {
 

@@ -1,4 +1,4 @@
-package br.com.luizalabs.indexing.preprocess;
+package br.com.luizalabs.index.preprocess;
 
 import java.io.File;
 import java.util.Arrays;

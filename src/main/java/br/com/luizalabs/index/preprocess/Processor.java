@@ -1,4 +1,4 @@
-package br.com.luizalabs.indexing.preprocess;
+package br.com.luizalabs.index.preprocess;
 
 import java.util.List;
 import java.util.Map;

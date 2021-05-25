@@ -1,17 +1,17 @@
-package br.com.luizalabs.indexing;
+package br.com.luizalabs.index;
 
-import br.com.luizalabs.indexing.preprocess.TxtProcessor;
-import br.com.luizalabs.indexing.preprocess.Text;
-import br.com.luizalabs.indexing.preprocess.Processor;
+import br.com.luizalabs.index.preprocess.TxtProcessor;
+import br.com.luizalabs.index.preprocess.Text;
+import br.com.luizalabs.index.preprocess.Processor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Init {
+public class Indexer {
 
-    private static final Logger logger = Logger.getLogger(Init.class.getName());
+    private static final Logger logger = Logger.getLogger(Indexer.class.getName());
 
     public static void main(String[] args) {
 

@@ -21,10 +21,10 @@ $ git clone <https://github.com/julioisaac/search.git>
 # Acesse a pasta do projeto
 $ cd search
 
-# Rodando os testes
+# Rode os testes
 $ mvn test
 
-# Construindo e empacotando as aplicações
+# Construa e empacote as aplicações
 $ mvn clean install
 ```
 ## Configurando

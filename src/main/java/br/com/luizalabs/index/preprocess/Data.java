@@ -1,4 +1,4 @@
-package br.com.luizalabs.indexing.preprocess;
+package br.com.luizalabs.index.preprocess;
 
 public interface Data {
 

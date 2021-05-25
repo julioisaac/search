@@ -1,6 +1,6 @@
-package br.com.luizalabs.indexing;
+package br.com.luizalabs.index;
 
-import br.com.luizalabs.indexing.preprocess.Processor;
+import br.com.luizalabs.index.preprocess.Processor;
 import br.com.luizalabs.utils.IOIndexUtil;
 
 import java.util.HashMap;

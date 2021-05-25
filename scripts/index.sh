@@ -1,7 +1,7 @@
 #!/bin/sh
 
 APPNAME="Indexing tool"
-APPJAR=./target/search-1.0.0-SNAPSHOT-index.jar
+APPJAR=./target/search-1.0.0-index.jar
 
 source ./scripts/setenv.sh
 

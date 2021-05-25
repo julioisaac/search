@@ -47,7 +47,7 @@
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>search-${version.project}</id>
+                        <id>search</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -60,13 +60,13 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>br.com.luizalabs.search.Search</mainClass>
+                                    <mainClass>br.com.luizalabs.search.Application</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>index-${version.project}</id>
+                        <id>index</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -79,7 +79,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>br.com.luizalabs.indexing.Init</mainClass>
+                                    <mainClass>br.com.luizalabs.index.Indexer</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

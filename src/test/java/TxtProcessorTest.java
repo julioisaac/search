@@ -1,7 +1,7 @@
-import br.com.luizalabs.indexing.preprocess.TxtProcessor;
-import br.com.luizalabs.indexing.preprocess.Text;
-import br.com.luizalabs.indexing.preprocess.Processor;
-import br.com.luizalabs.indexing.utils.ProcessorUtil;
+import br.com.luizalabs.index.preprocess.TxtProcessor;
+import br.com.luizalabs.index.preprocess.Text;
+import br.com.luizalabs.index.preprocess.Processor;
+import br.com.luizalabs.index.utils.ProcessorUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

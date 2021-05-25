@@ -1,7 +1,7 @@
-package br.com.luizalabs.indexing.preprocess;
+package br.com.luizalabs.index.preprocess;
 
-import br.com.luizalabs.indexing.helper.StopWords;
-import br.com.luizalabs.indexing.utils.ProcessorUtil;
+import br.com.luizalabs.index.helper.StopWords;
+import br.com.luizalabs.index.utils.ProcessorUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
