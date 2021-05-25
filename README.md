@@ -7,6 +7,11 @@ Biblioteca Java para sumarização de arquivos texto e busca por termos.
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Java_11](https://www.java.com/), [Maven](https://maven.apache.org/).
 
+### Dados
+
+Massa de dados usada nos testes de indexação e busca. 
+Baixe em <https://github.com/julioisaac/archives/blob/main/movies.zip>
+
 ### Instalando
 
 ```bash
