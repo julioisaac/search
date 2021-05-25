@@ -21,11 +21,16 @@ $ mvn test
 
 # Construindo e empacotando as aplicações
 $ mvn clean install
-
-# Execute o shell script para indexar os arquivos
-$ ./scripts/index.sh
 ```
+### Configurando
 
+No arquivo ```scripts/setenv.sh```, configure o path dos arquivos de texto e o path onde será salvo o índice resmissivo.
+
+```shell
+# Exemplo
+export ORIGIN_DATA_PATH=/Users/julioisaac/data
+export SEARCH_INDEX_PATH=/var/lib/search/data/
+```
 
 ### Usando
 
