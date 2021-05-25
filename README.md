@@ -2,10 +2,6 @@
 
 Biblioteca Java para sumarização de arquivos texto e busca por termos.
 
-### Sobre
-
-Desafio proposto pelo time de busca do luizalabs
-
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
@@ -45,5 +41,9 @@ $ ./scripts/index.sh
 # Execute o shell script passando algum termo para buscar.
 $ ./scripts/search.sh "walt disney"
 ```
+
+### Sobre
+
+Desafio de busca proposto pelo time do luizalabs
 
 
