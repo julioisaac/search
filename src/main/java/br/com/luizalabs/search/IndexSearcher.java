@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class IndexSearcher {
 
+    private IndexSearcher() {
+        throw new IllegalStateException("Index Searcher class");
+    }
+
     public static final List<String> search(Map<String, List<String>> index,String word) {
         String wordMin = word.toLowerCase();
         List<String> resultsByWord = index.get(wordMin) != null ? index.get(wordMin) : new ArrayList<>();

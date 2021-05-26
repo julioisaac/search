@@ -48,7 +48,7 @@ public class TxtProcessor implements Processor {
         for (String word : words) {
             word = ProcessorUtil.sanitize(word);
             if (stopWord(word)) continue;
-            List ocorrences = new ArrayList();
+            List<String> ocorrences;
             if (indexData.get(word) != null) {
                 ocorrences = indexData.get(word);
                 if (!ocorrences.contains(txt.getName())) {

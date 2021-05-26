@@ -21,9 +21,9 @@ public class Text implements Data {
     @Override
     public void read() {
         try {
-            File[] dataFiles = Stream.of(paths).flatMap(path -> Stream.of(new File(path).listFiles())).toArray(File[]::new);
-            Arrays.sort(Objects.requireNonNull(dataFiles));
-            this.dataFiles = dataFiles;
+            File[] files = Stream.of(paths).flatMap(path -> Stream.of(new File(path).listFiles())).toArray(File[]::new);
+            Arrays.sort(Objects.requireNonNull(files));
+            this.dataFiles = files;
         }
         catch (Exception ex) {
             logger.log(Level.WARNING, "Caminho dos arquivos não encontrado");

@@ -4,6 +4,8 @@ import br.com.luizalabs.index.preprocess.Processor;
 import br.com.luizalabs.index.utils.ProcessorUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,30 +24,19 @@ public class TxtProcessorTest {
     @Test
     public void testChargeFiles() {
         int count = files.get().length;
-        assertEquals(count,0);
+        assertEquals(0,count);
     }
 
     @Test
     public void testWords() {
         String[] words = ProcessorUtil.splitBySpace("the four musicians of bremen 1922 swalt disney");
-        assertEquals(words.length,8);
+        assertEquals(8, words.length);
     }
 
-    @Test
-    public void testStopWordEn() {
-        boolean stopWord = processor.stopWord("the");
-        assertTrue(stopWord);
+    @ParameterizedTest
+    @ValueSource(strings = {"the", "de", "la"})
+    public void testStopWords(String stopWords) {
+        assertTrue(processor.stopWord((stopWords)));
     }
 
-    @Test
-    public void testStopWordPt() {
-        boolean stopWord = processor.stopWord("de");
-        assertTrue(stopWord);
-    }
-
-    @Test
-    public void testStopWordEs() {
-        boolean stopWord = processor.stopWord("la");
-        assertTrue(stopWord);
-    }
 }
