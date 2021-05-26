@@ -16,7 +16,7 @@ public class Indexer {
 
     public static void main(String[] args) {
 
-        String paths[] = System.getenv("ORIGIN_DATA_PATH").split(":");
+        String[] paths = System.getenv("ORIGIN_DATA_PATH").split(":");
         String indexPath = System.getenv("SEARCH_INDEX_PATH");
         if (paths.length != 1) {
             logger.log(Level.WARNING, "Path dos arquivos requerido");
@@ -24,7 +24,7 @@ public class Indexer {
         }
 
         logger.log(Level.INFO, "Iniciando processadores de dados");
-        Text txts = new Text(paths);
+        var txts = new Text(paths);
         List<Processor> processors = new ArrayList<>();
         processors.add(new TxtProcessor(txts));
 

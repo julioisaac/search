@@ -30,8 +30,8 @@ public class TxtProcessor implements Processor {
     public Map<String, List<String>> sumarize() {
         texts.read();
         for (File txt : texts.get()) {
-            try (FileReader fileStream = new FileReader(txt);
-                BufferedReader bufferedReader = new BufferedReader(fileStream)) {
+            try (var fileStream = new FileReader(txt);
+                var bufferedReader = new BufferedReader(fileStream)) {
                 String line;
                 while((line = bufferedReader.readLine()) != null ) {
                     String[] words = ProcessorUtil.splitBySpace(line);

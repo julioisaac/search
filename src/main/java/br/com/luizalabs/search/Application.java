@@ -22,7 +22,7 @@ public class Application {
         }
 
         String sentence = args[0];
-        Searcher searcher = new Searcher(index);
+        var searcher = new Searcher(index);
         List<String> results = searcher.findByTerms(sentence);
 
         long endTime = System.nanoTime();

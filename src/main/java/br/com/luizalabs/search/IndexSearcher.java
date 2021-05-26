@@ -12,8 +12,7 @@ public class IndexSearcher {
 
     public static final List<String> search(Map<String, List<String>> index,String word) {
         String wordMin = word.toLowerCase();
-        List<String> resultsByWord = index.get(wordMin) != null ? index.get(wordMin) : new ArrayList<>();
-        return resultsByWord;
+        return index.get(wordMin) != null ? index.get(wordMin) : new ArrayList<>();
     }
 
     public static final List<String> search(Map<String, List<String>> index, String[] words) {

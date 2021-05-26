@@ -3,7 +3,6 @@ package br.com.luizalabs.utils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +21,12 @@ public class IndexReader {
     public static Map<String, List<String>> readBinary(final String path) throws IOException {
         Map<String, List<String>> index = new HashMap<>();
         ObjectInputStream objInput = null;
+        FileInputStream fileInputStream = null;
         try {
-            File file = new File(path.concat(IDX_NAME));
+            var file = new File(path.concat(IDX_NAME));
             if (file.exists()) {
-                objInput = new ObjectInputStream(new FileInputStream(file));
+                fileInputStream = new FileInputStream(file);
+                objInput = new ObjectInputStream(fileInputStream);
                 index = (Map<String, List<String>>) objInput.readObject();
             }
         } catch(IOException ioException) {
@@ -33,7 +34,8 @@ public class IndexReader {
         } catch(ClassNotFoundException notFoundException) {
             logger.log(java.util.logging.Level.SEVERE, notFoundException, () -> "Erro ao tentar fazer cast do map");
         } finally {
-            objInput.close();
+            if (objInput != null) { objInput.close(); }
+            if (fileInputStream != null) { fileInputStream.close(); }
         }
 
         return index;
@@ -41,19 +43,21 @@ public class IndexReader {
 
     public static void writeBinary(String path, Map<String, List<String>> index) throws IOException {
         ObjectOutputStream objOutput = null;
-        File dirPath = new File(path);
+        FileOutputStream fileOutputStream = null;
+        var dirPath = new File(path);
         if (!dirPath.exists()) dirPath.mkdirs();
-        File file = new File(path.concat(IDX_NAME));
+        var file = new File(path.concat(IDX_NAME));
         try {
             cleanUp(file.toPath());
             createFile(file);
-            objOutput = new ObjectOutputStream(new FileOutputStream(file));
+            fileOutputStream = new FileOutputStream(file);
+            objOutput = new ObjectOutputStream(fileOutputStream);
             objOutput.writeObject(index);
-            objOutput.close();
-        } catch(IOException erro) {
-            logger.log(Level.SEVERE, "Erro ao tentar escrever o arquivo "+path+" - "+erro.getMessage());
+        } catch(IOException exception) {
+            logger.log(Level.SEVERE, exception, () -> "Erro ao tentar escrever o arquivo " + path);
         } finally {
-            objOutput.close();
+            if (objOutput != null) { objOutput.close(); }
+            if (fileOutputStream != null) { fileOutputStream.close(); }
         }
     }
 

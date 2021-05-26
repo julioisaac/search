@@ -10,6 +10,10 @@ public class IndexHandler {
 
     private static final Logger logger = Logger.getLogger(IndexHandler.class.getName());
 
+    private IndexHandler() {
+        throw new IllegalStateException("Index Handler class");
+    }
+
     public static Map<String, List<String>> index(final String path) {
         try {
             return IndexReader.readBinary(path);

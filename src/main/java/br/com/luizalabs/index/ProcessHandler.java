@@ -14,12 +14,10 @@ public class ProcessHandler {
 
     private static final Map<String, List<String>> indexData = new HashMap<>();
 
-    public static void run(Processor processor) {
-        indexData.putAll(processor.sumarize());
-    }
-
     public static void run(List<Processor> processors) {
-        processors.forEach(processor -> run(processor));
+        processors.stream()
+                .map(Processor::sumarize)
+                .forEach(indexData::putAll);
     }
 
     public static final Map<String, List<String>> indexData() {

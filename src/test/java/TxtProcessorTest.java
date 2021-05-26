@@ -10,32 +10,32 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TxtProcessorTest {
+class TxtProcessorTest {
 
     static Processor processor;
     static Text files;
 
     @BeforeAll
-    public static void setUpBeforeClass() {
+    static void setUpBeforeClass() {
         files = new Text(new String[]{""});
         processor = new TxtProcessor(files);
     }
 
     @Test
-    public void testChargeFiles() {
+    void testChargeFiles() {
         int count = files.get().length;
         assertEquals(0,count);
     }
 
     @Test
-    public void testWords() {
+    void testWords() {
         String[] words = ProcessorUtil.splitBySpace("the four musicians of bremen 1922 swalt disney");
         assertEquals(8, words.length);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"the", "de", "la"})
-    public void testStopWords(String stopWords) {
+    void testStopWords(String stopWords) {
         assertTrue(processor.stopWord((stopWords)));
     }
 
