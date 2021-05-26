@@ -14,19 +14,19 @@ public class IndexHandler {
         throw new IllegalStateException("Index Handler class");
     }
 
-    public static Map<String, List<String>> index(final String path) {
+    public static Map<String, List<String>> index() {
         try {
-            return IndexReader.readBinary(path);
+            return IndexReader.readBinary();
         } catch (IOException ioException) {
-            logger.log(java.util.logging.Level.SEVERE, ioException, () -> "Erro ao tentar fechar ObjectInputStream "+path);
+            logger.log(java.util.logging.Level.SEVERE, ioException, () -> "Erro ao tentar fechar ObjectInputStream "+Config.SEARCH_INDEX_PATH.get());
         }
         return new HashMap<>();
     }
-    public static void save(String path, Map<String, List<String>> indexData) {
+    public static void save(Map<String, List<String>> indexData) {
         try {
-            IndexReader.writeBinary(path, indexData);
+            IndexReader.writeBinary(indexData);
         } catch (IOException ioException) {
-            logger.log(java.util.logging.Level.SEVERE, ioException, () -> "Erro ao tentar fechar ObjectOutputStream "+path);
+            logger.log(java.util.logging.Level.SEVERE, ioException, () -> "Erro ao tentar fechar ObjectOutputStream "+Config.SEARCH_INDEX_PATH.get());
         }
     }
 }

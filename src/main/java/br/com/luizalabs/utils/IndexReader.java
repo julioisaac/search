@@ -19,12 +19,12 @@ public class IndexReader {
     private static final String IDX_NAME = "/remissiveIndex.dat";
 
     @SuppressWarnings("unchecked")
-    public static Map<String, List<String>> readBinary(final String path) throws IOException {
+    public static Map<String, List<String>> readBinary() throws IOException {
         Map<String, List<String>> index = new HashMap<>();
         ObjectInputStream objInput = null;
         FileInputStream fileInputStream = null;
         try {
-            var file = new File(path.concat(IDX_NAME));
+            var file = new File(Config.SEARCH_INDEX_PATH.get().concat(IDX_NAME));
             if (file.exists()) {
                 fileInputStream = new FileInputStream(file);
                 objInput = new ObjectInputStream(fileInputStream);
@@ -42,12 +42,12 @@ public class IndexReader {
         return index;
     }
 
-    public static void writeBinary(String path, Map<String, List<String>> index) throws IOException {
+    public static void writeBinary(Map<String, List<String>> index) throws IOException {
         ObjectOutputStream objOutput = null;
         FileOutputStream fileOutputStream = null;
-        var dirPath = new File(path);
+        var dirPath = new File(Config.SEARCH_INDEX_PATH.get());
         if (!dirPath.exists()) dirPath.mkdirs();
-        var file = new File(path.concat(IDX_NAME));
+        var file = new File(Config.SEARCH_INDEX_PATH.get().concat(IDX_NAME));
         try {
             cleanUp(file.toPath());
             createFile(file);
@@ -55,7 +55,7 @@ public class IndexReader {
             objOutput = new ObjectOutputStream(fileOutputStream);
             objOutput.writeObject(index);
         } catch(IOException exception) {
-            logger.log(Level.SEVERE, exception, () -> "Erro ao tentar escrever o arquivo " + path);
+            logger.log(Level.SEVERE, exception, () -> "Erro ao tentar escrever o arquivo " + Config.SEARCH_INDEX_PATH.get());
         } finally {
             if (objOutput != null) { objOutput.close(); }
             if (fileOutputStream != null) { fileOutputStream.close(); }

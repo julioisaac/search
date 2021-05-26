@@ -1,4 +1,4 @@
-package br.com.luizalabs.index.helper;
+package br.com.luizalabs.index.indexer;
 
 import java.util.HashMap;
 
