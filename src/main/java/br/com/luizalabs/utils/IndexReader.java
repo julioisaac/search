@@ -18,6 +18,7 @@ public class IndexReader {
     private static final Logger logger = Logger.getLogger(IndexReader.class.getName());
     private static final String IDX_NAME = "/remissiveIndex.dat";
 
+    @SuppressWarnings("unchecked")
     public static Map<String, List<String>> readBinary(final String path) throws IOException {
         Map<String, List<String>> index = new HashMap<>();
         ObjectInputStream objInput = null;

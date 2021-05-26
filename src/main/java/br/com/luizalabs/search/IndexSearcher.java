@@ -10,7 +10,7 @@ public class IndexSearcher {
         throw new IllegalStateException("Index Searcher class");
     }
 
-    public static final List<String> search(Map<String, List<String>> index, String[] words) {
+    public static List<String> search(Map<String, List<String>> index, String[] words) {
         List<String> ocorrences = new ArrayList<>();
         for (String word : words) {
             String wordMin = word.toLowerCase();

@@ -20,7 +20,7 @@ public class ProcessHandler {
                 .forEach(indexData::putAll);
     }
 
-    public static final Map<String, List<String>> indexData() {
+    public static Map<String, List<String>> indexData() {
         return indexData;
     }
 
