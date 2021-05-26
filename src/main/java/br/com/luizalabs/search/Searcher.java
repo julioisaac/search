@@ -1,22 +1,19 @@
 package br.com.luizalabs.search;
 
-import br.com.luizalabs.utils.Index;
-
 import java.util.List;
+import java.util.Map;
 
 public class Searcher {
 
-    private IdxSearcher idxSearcher;
-    private static Index index;
+    private final Map<String, List<String>> index;
 
-    public Searcher(final Index index) {
-        idxSearcher = new IdxSearcher();
+    public Searcher(final Map<String, List<String>> index) {
         this.index = index;
     }
 
     public List<String> findByTerms(String sentence) {
         String[] words = sentence.split(" ");
 
-        return idxSearcher.search(index, words);
+        return IndexSearcher.search(index, words);
     }
 }

@@ -3,6 +3,7 @@ package br.com.luizalabs.index;
 import br.com.luizalabs.index.preprocess.TxtProcessor;
 import br.com.luizalabs.index.preprocess.Text;
 import br.com.luizalabs.index.preprocess.Processor;
+import br.com.luizalabs.utils.IndexHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +17,21 @@ public class Indexer {
     public static void main(String[] args) {
 
         String paths[] = System.getenv("ORIGIN_DATA_PATH").split(":");
+        String indexPath = System.getenv("SEARCH_INDEX_PATH");
         if (paths.length != 1) {
             logger.log(Level.WARNING, "Path dos arquivos requerido");
             System.exit(1);
         }
 
         logger.log(Level.INFO, "Iniciando processadores de dados");
-        Text texts = new Text(paths);
+        Text txts = new Text(paths);
         List<Processor> processors = new ArrayList<>();
-        processors.add(new TxtProcessor(texts));
+        processors.add(new TxtProcessor(txts));
 
-        logger.log(Level.INFO, "Criando índices em memória");
-        HandleProcessors.run(processors);
+        logger.log(Level.INFO, "Processando texto e criando índices em memória");
+        ProcessHandler.run(processors);
         logger.log(Level.INFO, "Gravando índices no disco");
-        HandleProcessors.writeIdx();
+        IndexHandler.save(indexPath, ProcessHandler.indexData());
         logger.log(Level.INFO, "DONE!");
     }
 

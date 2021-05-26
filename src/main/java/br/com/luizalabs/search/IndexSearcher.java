@@ -1,23 +1,22 @@
 package br.com.luizalabs.search;
 
-import br.com.luizalabs.utils.Index;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class IdxSearcher {
+public class IndexSearcher {
 
-    public List<String> search(final Index index, String word) {
+    public static final List<String> search(Map<String, List<String>> index,String word) {
         String wordMin = word.toLowerCase();
-        List<String> resultsByWord = index.getIndex().get(wordMin) != null ? index.getIndex().get(wordMin) : new ArrayList<>();
+        List<String> resultsByWord = index.get(wordMin) != null ? index.get(wordMin) : new ArrayList<>();
         return resultsByWord;
     }
 
-    public List<String> search(final Index index, String[] words) {
+    public static final List<String> search(Map<String, List<String>> index, String[] words) {
         List<String> ocorrences = new ArrayList<>();
         for (String word : words) {
             String wordMin = word.toLowerCase();
-            List<String> resultsByWord = index.getIndex().get(wordMin);
+            List<String> resultsByWord = index.get(wordMin);
             if (resultsByWord != null) {
                 if (ocorrences.isEmpty()) {
                     ocorrences.addAll(resultsByWord);

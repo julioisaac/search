@@ -18,10 +18,9 @@ public class TxtProcessor implements Processor {
 
     private static final Logger logger = Logger.getLogger(TxtProcessor.class.getName());
 
-    private static final Map<String, List<String>> remissiveIndex = new HashMap<>();
     private static final StopWords stopWords = StopWords.getInstance();
-
     private final Text texts;
+    private final Map<String, List<String>> indexData = new HashMap<>();
 
     public TxtProcessor(Text texts) {
         this.texts = texts;
@@ -42,16 +41,16 @@ public class TxtProcessor implements Processor {
                 logger.log(Level.SEVERE, "Erro ao tentar criar arquivo", ioException.getCause());
             }
         }
-        return remissiveIndex;
+        return indexData;
     }
 
     public void handleTxt(File txt, String[] words) {
         for (String word : words) {
             word = ProcessorUtil.sanitize(word);
             if (stopWord(word)) continue;
-            List<String> ocorrences;
-            if (remissiveIndex.get(word) != null) {
-                ocorrences = remissiveIndex.get(word);
+            List ocorrences = new ArrayList();
+            if (indexData.get(word) != null) {
+                ocorrences = indexData.get(word);
                 if (!ocorrences.contains(txt.getName())) {
                     ocorrences.add(txt.getName());
                 }
@@ -60,7 +59,7 @@ public class TxtProcessor implements Processor {
                 ocorrences = new ArrayList<>();
                 ocorrences.add(txt.getName());
             }
-            remissiveIndex.put(word.toLowerCase(), ocorrences);
+            indexData.put(word.toLowerCase(), ocorrences);
         }
     }
 

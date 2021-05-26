@@ -1,7 +1,6 @@
 package br.com.luizalabs.search;
 
-import br.com.luizalabs.utils.IOIndexUtil;
-import br.com.luizalabs.utils.Index;
+import br.com.luizalabs.utils.IndexHandler;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -10,9 +9,9 @@ import java.util.logging.Logger;
 public class Application {
 
     private static final Logger logger = Logger.getLogger(Application.class.getName());
+    private static final Map<String, List<String>> index = IndexHandler.index(System.getenv("SEARCH_INDEX_PATH"));
 
     private static final String MSG_OCORRENCES = "Foram encontradas {0} ocorrências pelo termo \"{1}\" \nOs arquivos que possuem \"{2}\" são: \n\n{3}\n";
-    private static final Index index = new Index(IOIndexUtil.readBinary());
 
     public static void main(String[] args) {
         long startTime = System.nanoTime();
