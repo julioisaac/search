@@ -11,6 +11,8 @@ RUN unzip movies.zip -d .
 ENV ORIGIN_DATA_PATH=/build/data
 ENV SEARCH_INDEX_PATH=/build/index
 
+RUN mkdir $SEARCH_INDEX_PATH
+
 RUN java -jar /build/target/search-indexer.jar
 
 FROM openjdk:11.0.4-jre-slim-buster
