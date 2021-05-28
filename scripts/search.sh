@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run search "$1"
+docker run search:last "$1"
