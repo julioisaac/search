@@ -19,14 +19,17 @@ A estratégia de otimização dos dados para busca foi de criar um [índice remi
 Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida passando a ser uma lista de palavras(termos) que referenciam  os arquivos.
 
 Exemplo:
-| **LISTA DE ARQUIVOS DE ENTRADA**        ||
+
+Dados os arquivos
+
 | **Nome**          | **Conteúdo**      |
 | :------------- | -------------: |
 | don-de-dios.txt           | don de dios 2005 robin                                                              |
 | hospital-de-urgencia.txt  | hospital de urgencia 1956 claude godard armando moreno tony leblanc                 |
 | the-real-robin-hood.txt   | the real robin hood 2010 ridley scott russell crowe cate blanchett m. david melvin  |
 
-| **ARQUIVO DE ÍNDICE CHAVE E VALOR**                        ||
+O índice remissivo teria esses dados
+
 | **Palavra**       | **Ocorrências nos arquivos**            |
 | :-------------| -------------:                              |
 | cate          |   the-real-robin-hood.txt                   |
