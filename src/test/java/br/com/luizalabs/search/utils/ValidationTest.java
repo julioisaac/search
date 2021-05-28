@@ -38,7 +38,8 @@ class ValidationTest {
 
     @Test
     void shouldEmptyIndexNotPass() {
-        assertThrows(NullPointerException.class, () -> Validation.index(new HashMap<>()));
+        Map<String, Set<String>> map = new HashMap<>();
+        assertThrows(NullPointerException.class, () -> Validation.index(map));
     }
 
     @Test

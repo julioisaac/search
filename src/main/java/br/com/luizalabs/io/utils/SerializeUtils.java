@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class SerializeUtils {
 
-    public static byte[] serialize(Map value) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try(ObjectOutputStream outputStream = new ObjectOutputStream(out)) {
+    private SerializeUtils() {}
+
+    public static byte[] serialize(Map<String, ? extends Object> value) throws IOException {
+        var out = new ByteArrayOutputStream();
+        try(var outputStream = new ObjectOutputStream(out)) {
             outputStream.writeObject(value);
         }
 
@@ -15,7 +17,7 @@ public class SerializeUtils {
     }
 
     public static <T extends Map> T deserialize(byte[] data) throws IOException, ClassNotFoundException {
-        try(ByteArrayInputStream bis = new ByteArrayInputStream(data)) {
+        try(var bis = new ByteArrayInputStream(data)) {
             //noinspection unchecked
             return (T) new ObjectInputStream(bis).readObject();
         }

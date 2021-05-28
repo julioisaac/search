@@ -55,58 +55,68 @@ class FindServiceTest {
 
     @Test
     void shouldFoundTwoOccurrences() {
+        String[] terms = new String[]{"robin"};
         List<String> expected = Arrays.asList("don-de-dios.txt", "the-real-robin-hood.txt");
-        List<String> results = service.findByTerms(new String[]{"robin"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldFoundOneOccurrence() {
+        String[] terms = new String[]{"dios"};
         List<String> expected = Arrays.asList("don-de-dios.txt");
-        List<String> results = service.findByTerms(new String[]{"dios"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldNotFoundOccurences() {
+        String[] terms = new String[]{"walt"};
         List<String> expected = new ArrayList<>();
-        List<String> results = service.findByTerms(new String[]{"walt"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldFoundOneOccurenceByTwoTerms() {
+        String[] terms = new String[]{"robin", "hood"};
         List<String> expected = Arrays.asList("the-real-robin-hood.txt");
-        List<String> results = service.findByTerms(new String[]{"robin", "hood"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldNotFoundStopWord() {
+        String[] terms = new String[]{"the"};
         List<String> expected = new ArrayList<>();
-        List<String> results = service.findByTerms(new String[]{"the"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldNotFoundSpecialCharacters() {
+        String[] terms = new String[]{"!?@"};
         List<String> expected = new ArrayList<>();
-        List<String> results = service.findByTerms(new String[]{"!?@"});
+        List<String> results = service.findByTerms(terms);
         assertLinesMatch(expected, new ArrayList<>(results));
     }
 
     @Test
     void shouldNotSorted() {
+        String[] terms = new String[]{"robin"};
         List<String> expected = Arrays.asList("the-real-robin-hood.txt", "don-de-dios.txt");
-        List<String> results = service.findByTerms(new String[]{"robin"});
-        assertFalse(expected.equals(results));
+        List<String> results = service.findByTerms(terms);
+        boolean notSorted = expected.equals(results);
+        assertFalse(notSorted);
     }
 
     @Test
     void shouldSorted() {
+        String[] terms = new String[]{"robin"};
         List<String> expected = Arrays.asList("don-de-dios.txt", "the-real-robin-hood.txt");
-        List<String> results = service.findByTerms(new String[]{"robin"});
-        assertTrue(expected.equals(results));
+        List<String> results = service.findByTerms(terms);
+        boolean sorted = expected.equals(results);
+        assertTrue(sorted);
     }
 
 }
