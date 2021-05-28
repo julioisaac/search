@@ -11,18 +11,17 @@ public class FindService {
     }
 
     public List<String> findByTerms(String[] words) {
-        List<String> occurrence = new ArrayList<>();
+        List<String> occurrences = new ArrayList<>();
         for (String word : words) {
             Set<String> resultsByWord = index.get(word);
-            if (resultsByWord != null) {
-                if (occurrence.isEmpty()) {
-                    occurrence.addAll(resultsByWord);
-                } else {
-                    occurrence.retainAll(resultsByWord);
-                }
+            if (resultsByWord == null) { continue; }
+            if (occurrences.isEmpty()) {
+                occurrences.addAll(resultsByWord);
+            } else {
+                occurrences.retainAll(resultsByWord);
             }
         }
-        Collections.sort(occurrence);
-        return occurrence;
+        Collections.sort(occurrences);
+        return occurrences;
     }
 }
