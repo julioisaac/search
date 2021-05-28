@@ -9,13 +9,14 @@
 Desafio @luizalabs                                                                    
 ```
 
+
 Biblioteca Java para sumarização de texto e busca por termos.
 O programa busca por uma sentença em todos [estes](https://github.com/julioisaac/archives/raw/main/movies.zip)
 arquivos e exibe quantos e quais arquivos possuem a palavra chave. A ordenação
 dos arquivos é apresentada em ordem crescente e alfabética.
 
-## Implementação
-A estratégia de otimização dos dados para busca foi de criar um [índice remissivo (índice invertido ou índice reverso)](https://en.wikipedia.org/wiki/Inverted_index). Isso proveu a realização de buscas mais precisas e rápidas.
+## Abordagem
+A estratégia de otimização dos dados para busca foi criar um [índice remissivo (índice invertido ou índice reverso)](https://en.wikipedia.org/wiki/Inverted_index). Isso proveu a realização de buscas mais precisas e rápidas.
 Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida passando a ser uma lista de palavras(termos) que referenciam  os arquivos.
 
 ### Exemplo:
@@ -57,7 +58,7 @@ Nesta aplicação o índice remissivo está sendo construído com base em uma li
 | urgencia      |   hospital-de-urgencia.txt                  |
 | 1956          |   hospital-de-urgencia.txt                  |
 
-## Pré-requisitos
+## Pré-requisitos (rodar no Docker)
 
 Antes de começar a usar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Docker](https://www.docker.com/).
@@ -71,20 +72,114 @@ $ git clone <https://github.com/julioisaac/search.git>
 # Acesse a pasta do projeto
 $ cd search
 
-# Rode o script para instalar as dependencias, rodar os testes, empacotar as aplicações, gerar os indices e construir a imagem docker final.
+# Rode o script para contruir a imagem docker
+# (baixa dependencias, roda testes, idexa conteudo e cria a imagem docker)
 $ ./scripts/build.sh
 
 ```
 
-## Usar
-
-### Busca
+## Teste busca
 
 ```bash
 # Execute o shell script passando algum termo para buscar.
 $ ./scripts/search.sh "walt disney"
 ```
 
+# Desenvolvedor
+
+## Pré-requisitos (rodar local)
+
+Para desenvolver ou evoluir esse projeto, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [Java 11](https://www.java.com/),
+[Git](https://git-scm.com) e [Maven](https://maven.apache.org/).
+
+## Testes
+
+Assumindo que o projeto já tenha sido clonado você pode rodar os testes com o script a baixo.
+
+```bash
+# Rode os testes.
+$ ./scripts/tests.sh
+
+```
+## Configuração
+
+Para rodar a aplicação localmente você precisará configurar as seguintes variavéis de ambiente.
+A variável ORIGIN_DATA_PATH serve para definir o caminho da pasta onde estão os arquivos texto que serão sumarizados.
+A variável SEARCH_INDEX_PATH serve para definir o caminho da pasta onde o índice será salvo.
+```bash
+$ export ORIGIN_DATA_PATH=${SEU_PATH_DADOS}
+$ export SEARCH_INDEX_PATH=${SEU_PATH_INDEX}
+```
+
+## Empacotando
+
+O comando maven irá criar na pasta target os jar's  _search-indexer.jar_ e _search-application.jar_ respectivamente usados para indexar os dados e buscar os termos.
+```bash
+# Construindo os pacotes
+$ mvn clean package
+
+```
+
+## Indexando dados
+
+Ao rodar a aplicação a baixo os arquivos serão processados e o índice será gerado.
+```bash
+# Indexando os arquivos
+$ java -jar target/search-indexer.jar
+
+```
+
+## Testando um termo
+
+Ao rodar a aplicação a baixo passando alguma sentença a busca quantos e quais arquivos possuem os termos.
+```bash
+# Buscando termos
+$ java -jar target/search-application.jar "walt disney"
+
+```
+
+## Implementação
+
+### Interface Loader
+
+A versão atual implementa a classe ```FileLoader``` responsável pelo carregamento dos arquivos texto do disco.
+
+Caso necessário mudar a origem dos dados a serem indexados deve se implementar a interface ```Loader```
+```java
+// Exemplo
+public class BDLoader implements Loader {
+...
+```
+O BBLoader por sua vez seria carregado na Loaderfactory na classe de entrada```Indexer```
+```java
+//Exemplo
+...
+List<IndexData> indexDataList = new LoaderFactory()
+      .add(new BDLoader())
+      .load();
+...
+```
+
+### Interface WordTransformer
+
+A versão atual implementa as classes ```SanitizeWordTransformer```  e ```StopWordTransformer```. As implementacoes aplicam algum tipo de tratamento a palavra antes de ser indexada.
+
+Caso necessário fazer outros tipos de tratamento a palavra deve se implementar a interface ```Transformer```
+```java
+// Exemplo
+public class LemmatizeTransformer implements WordTransformer {
+...
+```
+O LemmatizeTransformer por sua vez seria adicionada ao ```IndexBuilder``` responsavel pela criacao do índice remissivo e construida na classe de entrada```Indexer```
+```java
+//Exemplo
+...
+Map<String, Set<String>> idx = new IndexBuilder.Builder()
+      .addTransformer(new LemmatizeTransformer())
+      .summarize(indexDataList)
+      .build();
+...
+```
 
 ## Sobre
 
