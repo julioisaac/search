@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IndexBuilderTest {
 
     Loader fileLoader;
-    IndexService indexHandler;
+    IndexService indexService;
     Map<String, Set<String>> idx;
 
     @BeforeEach
@@ -30,10 +30,10 @@ public class IndexBuilderTest {
         Mockito.when(fileLoader.load(fileLoader.getPaths())).thenCallRealMethod();
         Mockito.when(fileLoader.load()).thenCallRealMethod();
 
-        indexHandler = Mockito.mock(IndexService.class);
-        Mockito.when(indexHandler.getPath()).thenReturn(path);
-        Mockito.when(indexHandler.index()).thenCallRealMethod();
-        Mockito.doCallRealMethod().when(indexHandler).save(Mockito.anyMap());
+        indexService = Mockito.mock(IndexService.class);
+        Mockito.when(indexService.getPath()).thenReturn(path);
+        Mockito.when(indexService.index()).thenCallRealMethod();
+        Mockito.doCallRealMethod().when(indexService).save(Mockito.anyMap());
 
         idx = new IndexBuilder.Builder()
                 .addTransformer(new SanitizeWordTransformer())
@@ -49,9 +49,14 @@ public class IndexBuilderTest {
     }
 
     @Test
-    void shouldSaveIdx() throws IOException {
-        indexHandler.save(idx);
-        assertEquals(24, idx.size());
+    void shouldSaveIdx() {
+        assertDoesNotThrow(() -> indexService.save(idx));
+    }
+
+    @Test
+    void shouldNotSaveIdx() throws IOException {
+        Mockito.doCallRealMethod().when(indexService).save(null);
+        assertThrows(NullPointerException.class, () -> indexService.save(null));
     }
 
 

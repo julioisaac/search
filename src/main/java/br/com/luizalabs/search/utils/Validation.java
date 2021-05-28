@@ -13,14 +13,14 @@ public final class Validation {
     public static void sentence(String[] args) {
         if (args.length != 1) {
             logger.severe("Enter the search parameter");
-            System.exit(1);
+            throw new NullPointerException("Enter the search parameter");
         }
     }
 
     public static void index(Map<String, Set<String>> index) {
         if (index == null || index.size() == 0) {
             logger.severe("The index wasn't load");
-            System.exit(1);
+            throw new NullPointerException("The index wasn't load");
         }
     }
 }

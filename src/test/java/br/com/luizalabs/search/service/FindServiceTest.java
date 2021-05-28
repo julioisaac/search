@@ -3,6 +3,7 @@ package br.com.luizalabs.search.service;
 import br.com.luizalabs.io.IndexService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,10 +13,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class FindServiceTest {
 
     FindService service;
+    IndexService indexService;
 
     @BeforeEach
     void setUp() throws IOException, ClassNotFoundException {
-        service = new FindService(IndexService.getInstance().index());
+        String path = getClass().getClassLoader().getResource("data").getPath();
+
+        indexService = Mockito.mock(IndexService.class);
+        Mockito.when(indexService.getPath()).thenReturn(path);
+        Mockito.doCallRealMethod().when(indexService).save(Mockito.anyMap());
+        Mockito.when(indexService.index()).thenCallRealMethod();
+
+        service = new FindService(indexService.index());
     }
 
     @Test
@@ -45,5 +54,7 @@ class FindServiceTest {
         List<String> results = service.findByTerms("robin hood");
         assertLinesMatch(expected, new ArrayList<>(results));
     }
+
+    //TODO testar ordencação
 
 }

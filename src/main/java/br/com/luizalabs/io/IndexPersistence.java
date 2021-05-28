@@ -22,11 +22,19 @@ public class IndexPersistence {
     }
 
     public void write(String strPath, Map<String, Set<String>> index) throws IOException {
+        validation(index);
         String filePath = strPath.concat(IDX_NAME);
         Path path = new File(filePath).toPath();
         Files.deleteIfExists(path);
         Files.createFile(path);
         Files.write(path, SerializeUtils.serialize(index));
+    }
+
+    public void validation(Map<String, Set<String>> index) throws IOException {
+        if (index == null) {
+            logger.log(Level.SEVERE, "Index should not be null");
+            throw new NullPointerException("Index file not be null");
+        }
     }
 
     public Path validation(String path) throws IOException {

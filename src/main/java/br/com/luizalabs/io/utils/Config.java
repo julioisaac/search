@@ -11,12 +11,12 @@ public enum Config {
 
     private String value;
 
-    public String get(){
+    public String get() {
         if (value == null) {
             value = System.getenv(name());
             if (value == null  || value.isEmpty()) {
-                logger.log(Level.SEVERE, "Missing environment variable {0}", value);
-                System.exit(1);
+                logger.log(Level.SEVERE, "Missing environment variable {0}", name());
+                throw new NullPointerException(String.format("Missing environment variable %s", name()));
             }
         }
         return value;
