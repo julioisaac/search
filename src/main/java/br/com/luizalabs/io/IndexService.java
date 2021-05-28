@@ -37,6 +37,10 @@ public class IndexService {
         indexPersistence().write(getPath(), indexData);
     }
 
+    public void remove() throws IOException {
+        indexPersistence().delete(getPath());
+    }
+
     public String getPath() {
         return Config.SEARCH_INDEX_PATH.get();
     }

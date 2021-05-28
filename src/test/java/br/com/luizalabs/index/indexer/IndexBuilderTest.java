@@ -5,28 +5,29 @@ import br.com.luizalabs.index.indexer.transformers.stopwords.StopWordTransformer
 import br.com.luizalabs.index.loader.Loader;
 import br.com.luizalabs.index.loader.file.FileLoader;
 import br.com.luizalabs.io.IndexService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IndexBuilderTest {
+class IndexBuilderTest {
 
-    Loader fileLoader;
-    IndexService indexService;
-    Map<String, Set<String>> idx;
+    static Loader fileLoader;
+    static IndexService indexService;
+    static Map<String, Set<String>> idx;
 
-    @BeforeEach
-    void setUp() throws IOException, ClassNotFoundException {
-        String path = Objects.requireNonNull(getClass().getClassLoader().getResource("data")).getPath();
-        List<String> resourceDataPath = Collections.singletonList(path);
+    @BeforeAll
+    static void setUp() throws IOException, ClassNotFoundException {
+        String path = Paths.get("src/test/resources/data").toAbsolutePath().toString();
 
         fileLoader = Mockito.mock(FileLoader.class);
-        Mockito.when(fileLoader.getPaths()).thenReturn(resourceDataPath);
+        Mockito.when(fileLoader.getPaths()).thenReturn(Collections.singletonList(path));
         Mockito.when(fileLoader.load(fileLoader.getPaths())).thenCallRealMethod();
         Mockito.when(fileLoader.load()).thenCallRealMethod();
 
@@ -34,6 +35,7 @@ public class IndexBuilderTest {
         Mockito.when(indexService.getPath()).thenReturn(path);
         Mockito.when(indexService.index()).thenCallRealMethod();
         Mockito.doCallRealMethod().when(indexService).save(Mockito.anyMap());
+        Mockito.doCallRealMethod().when(indexService).remove();
 
         idx = new IndexBuilder.Builder()
                 .addTransformer(new SanitizeWordTransformer())
@@ -42,9 +44,13 @@ public class IndexBuilderTest {
                 .build();
     }
 
+    @AfterAll
+    static void cleanUp() throws IOException {
+        indexService.remove();
+    }
 
     @Test
-    void shouldSummarize() {
+    void shouldSummarized() {
         assertEquals(24, idx.size());
     }
 
@@ -56,7 +62,8 @@ public class IndexBuilderTest {
     @Test
     void shouldNotSaveIdx() throws IOException {
         Mockito.doCallRealMethod().when(indexService).save(null);
-        assertThrows(NullPointerException.class, () -> indexService.save(null));
+        var exception = assertThrows(NullPointerException.class, () -> indexService.save(null));
+        assertEquals("Index file should not be null", exception.getMessage());
     }
 
 

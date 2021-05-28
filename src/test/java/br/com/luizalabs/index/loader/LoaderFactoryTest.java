@@ -6,23 +6,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoaderFactoryTest {
 
-    protected Loader fileLoader;
+    static Loader fileLoader;
 
     @BeforeEach
     void setUp() {
-        fileLoader = Mockito.mock(FileLoader.class);
-        String path = Objects.requireNonNull(getClass().getClassLoader().getResource("data")).getPath();
-        List<String> resourceDataPath = Collections.singletonList(path);
+        String path = Paths.get("src/test/resources/data").toAbsolutePath().toString();
 
-        Mockito.when(fileLoader.getPaths()).thenReturn(resourceDataPath);
+        fileLoader = Mockito.mock(FileLoader.class);
+        Mockito.when(fileLoader.getPaths()).thenReturn(Collections.singletonList(path));
         Mockito.when(fileLoader.load(fileLoader.getPaths())).thenCallRealMethod();
         Mockito.when(fileLoader.load()).thenCallRealMethod();
     }

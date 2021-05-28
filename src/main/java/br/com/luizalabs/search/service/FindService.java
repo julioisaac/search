@@ -10,8 +10,7 @@ public class FindService {
         this.index = index;
     }
 
-    public List<String> findByTerms(String sentence) {
-        String[] words = sentence.toLowerCase().split(" ");
+    public List<String> findByTerms(String[] words) {
         List<String> occurrence = new ArrayList<>();
         for (String word : words) {
             Set<String> resultsByWord = index.get(word);
@@ -23,6 +22,7 @@ public class FindService {
                 }
             }
         }
+        Collections.sort(occurrence);
         return occurrence;
     }
 }

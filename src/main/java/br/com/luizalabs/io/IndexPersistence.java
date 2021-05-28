@@ -30,14 +30,20 @@ public class IndexPersistence {
         Files.write(path, SerializeUtils.serialize(index));
     }
 
-    public void validation(Map<String, Set<String>> index) throws IOException {
+    public void delete(String strPath) throws IOException {
+        String filePath = strPath.concat(IDX_NAME);
+        Path path = new File(filePath).toPath();
+        Files.deleteIfExists(path);
+    }
+
+    private void validation(Map<String, Set<String>> index) throws IOException {
         if (index == null) {
-            logger.log(Level.SEVERE, "Index should not be null");
-            throw new NullPointerException("Index file not be null");
+            logger.log(Level.SEVERE, "Index file should not be null");
+            throw new NullPointerException("Index file should not be null");
         }
     }
 
-    public Path validation(String path) throws IOException {
+    private Path validation(String path) throws IOException {
         String filePath = path.concat(IDX_NAME);
         File file = new File(filePath);
         if (!file.exists()) {

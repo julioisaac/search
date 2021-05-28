@@ -17,8 +17,23 @@ class ValidationTest {
     }
 
     @Test
-    void shouldSentenceNotPass() {
+    void shouldMultipleSentencesNotPass() {
         assertThrows(NullPointerException.class, () -> Validation.sentence(new String[]{"walt disney", "pictures"}));
+    }
+
+    @Test
+    void shouldNullSentenceNotPass() {
+        assertThrows(NullPointerException.class, () -> Validation.sentence(null));
+    }
+
+    @Test
+    void shouldEmptySentencesNotPass() {
+        assertThrows(NullPointerException.class, () -> Validation.sentence(new String[]{}));
+    }
+
+    @Test
+    void shouldEmptySentenceNotPass() {
+        assertThrows(NullPointerException.class, () -> Validation.sentence(new String[]{""}));
     }
 
     @Test
@@ -39,6 +54,13 @@ class ValidationTest {
         Map<String, Set<String>> index = new HashMap<String, Set<String>>();
         index.put("palavra", ocurrences);
         assertDoesNotThrow(() -> Validation.index(index));
+    }
+
+    @Test
+    void shouldCheckAndCleanSameWords() {
+        String[] expected = new String[]{"robin"};
+        String[] result = Validation.checkSameWords("robin robin");
+        assertArrayEquals(expected, result);
     }
 
 }

@@ -20,16 +20,18 @@ public class Searcher {
         long startTime = System.nanoTime();
 
         Validation.sentence(args);
-        String sentence = args[0];
         Validation.index(index);
+        String[] words = Validation.checkSameWords(args[0]);
         var searcher = new FindService(index);
-        List<String> results = searcher.findByTerms(sentence);
-        Collections.sort(results);
+        List<String> results = searcher.findByTerms(words);
 
         long elapsedTime = (System.nanoTime() - startTime);
         double elapsedTimeInSecond = (double) elapsedTime / 1000_000_000;
 
-        logger.log(Level.INFO, Msg.OUTPUT, new Object[]{results.size(), sentence, sentence, String.join("\n", results)});
+        var terms = String.join(" ", words);
+        var occurrences = String.join("\n", results);
+
+        logger.log(Level.INFO, Msg.OUTPUT, new Object[]{results.size(), terms, terms, occurrences});
         logger.log(Level.INFO, "{0} nanoseconds", elapsedTime);
         logger.log(Level.INFO, "{0} s", elapsedTimeInSecond);
     }

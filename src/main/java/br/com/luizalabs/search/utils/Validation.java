@@ -1,20 +1,26 @@
 package br.com.luizalabs.search.utils;
 
-import br.com.luizalabs.search.Searcher;
-
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
 public final class Validation {
 
-    private static final Logger logger = Logger.getLogger(Searcher.class.getName());
+    private Validation(){}
+
+    private static final Logger logger = Logger.getLogger(Validation.class.getName());
 
     public static void sentence(String[] args) {
-        if (args.length != 1) {
+        if (args.length != 1 || args[0].isEmpty()) {
             logger.severe("Enter the search parameter");
             throw new NullPointerException("Enter the search parameter");
         }
+    }
+
+    public static String[] checkSameWords(String sentence) {
+        String[] words = sentence.toLowerCase().split(" ");
+        return Arrays.stream(words).distinct().toArray(String[]::new);
     }
 
     public static void index(Map<String, Set<String>> index) {
