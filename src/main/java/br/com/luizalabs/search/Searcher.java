@@ -23,7 +23,8 @@ public class Searcher {
         String sentence = args[0];
         Validation.index(index);
         var searcher = new FindService(index);
-        Set<String> results = searcher.findByTerms(sentence);
+        List<String> results = searcher.findByTerms(sentence);
+        Collections.sort(results);
 
         long elapsedTime = (System.nanoTime() - startTime);
         double elapsedTimeInSecond = (double) elapsedTime / 1000_000_000;

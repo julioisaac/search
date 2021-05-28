@@ -1,8 +1,6 @@
 package br.com.luizalabs.search.service;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class FindService {
 
@@ -12,14 +10,14 @@ public class FindService {
         this.index = index;
     }
 
-    public Set<String> findByTerms(String sentence) {
+    public List<String> findByTerms(String sentence) {
         String[] words = sentence.toLowerCase().split(" ");
-        Set<String> occurrence = new HashSet<>();
+        List<String> occurrence = new ArrayList<>();
         for (String word : words) {
             Set<String> resultsByWord = index.get(word);
             if (resultsByWord != null) {
                 if (occurrence.isEmpty()) {
-                    occurrence = resultsByWord;
+                    occurrence.addAll(resultsByWord);
                 } else {
                     occurrence.retainAll(resultsByWord);
                 }
