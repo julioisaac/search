@@ -1,19 +1,35 @@
 package br.com.luizalabs.search;
 
-import java.util.List;
-import java.util.Map;
+import br.com.luizalabs.search.service.FindService;
+import br.com.luizalabs.search.utils.Msg;
+import br.com.luizalabs.search.utils.Validation;
+import br.com.luizalabs.io.IndexService;
+
+import java.io.IOException;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Searcher {
 
-    private final Map<String, List<String>> index;
+    private static final Logger logger = Logger.getLogger(Searcher.class.getName());
 
-    public Searcher(final Map<String, List<String>> index) {
-        this.index = index;
-    }
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        final Map<String, Set<String>> index = IndexService.getInstance().index();
 
-    public List<String> findByTerms(String sentence) {
-        String[] words = sentence.split(" ");
+        long startTime = System.nanoTime();
 
-        return IndexSearcher.search(index, words);
+        Validation.sentence(args);
+        String sentence = args[0];
+        Validation.index(index);
+        var searcher = new FindService(index);
+        Set<String> results = searcher.findByTerms(sentence);
+
+        long elapsedTime = (System.nanoTime() - startTime);
+        double elapsedTimeInSecond = (double) elapsedTime / 1000_000_000;
+
+        logger.log(Level.INFO, Msg.OUTPUT, new Object[]{results.size(), sentence, sentence, String.join("\n", results)});
+        logger.log(Level.INFO, "{0} nanoseconds", elapsedTime);
+        logger.log(Level.INFO, "{0} s", elapsedTimeInSecond);
     }
 }

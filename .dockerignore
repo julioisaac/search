@@ -1,0 +1,6 @@
+Dockerfile
+.idea
+target
+.git
+search.iml
+.gitignore
