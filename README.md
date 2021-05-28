@@ -18,9 +18,9 @@ dos arquivos é apresentada em ordem crescente e alfabética.
 A estratégia de otimização dos dados para busca foi de criar um [índice remissivo (índice invertido ou índice reverso)](https://en.wikipedia.org/wiki/Inverted_index). Isso proveu a realização de buscas mais precisas e rápidas.
 Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida passando a ser uma lista de palavras(termos) que referenciam  os arquivos.
 
-Exemplo:
+### Exemplo:
 
-Dados os arquivos
+**Dados os arquivos**
 
 | **Nome**          | **Conteúdo**      |
 | :------------- | -------------: |
@@ -28,7 +28,7 @@ Dados os arquivos
 | hospital-de-urgencia.txt  | hospital de urgencia 1956 claude godard armando moreno tony leblanc                 |
 | the-real-robin-hood.txt   | the real robin hood 2010 ridley scott russell crowe cate blanchett m. david melvin  |
 
-O índice remissivo teria esses dados
+**O índice remissivo teria esses dados**
 
 | **Palavra**       | **Ocorrências nos arquivos**            |
 | :-------------| -------------:                              |
