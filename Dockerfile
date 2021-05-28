@@ -1,9 +1,13 @@
 FROM maven:3.8.1-jdk-11 AS builder
 
 WORKDIR /build
-COPY . /build
 
-RUN mvn clean package
+COPY pom.xml .
+RUN mvn -e -B dependency:resolve
+
+COPY src ./src
+RUN mvn test
+RUN mvn package
 
 ADD https://github.com/julioisaac/archives/raw/main/movies.zip .
 RUN unzip movies.zip -d .
