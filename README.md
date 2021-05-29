@@ -12,16 +12,16 @@ Desafio @luizalabs
 
 Biblioteca Java para sumarização de texto e busca por termos.
 O programa busca por uma sentença em todos [estes](https://github.com/julioisaac/archives/raw/main/movies.zip)
-arquivos e exibe quantos e quais arquivos possuem a palavra chave. A ordenação
+arquivos e exibe quantos e quais arquivos possuem a palavra-chave. A ordenação
 dos arquivos é apresentada em ordem crescente e alfabética.
 
-## Abordagem
+# Abordagem
 A estratégia de otimização dos dados para busca foi criar um [índice remissivo (índice invertido ou índice reverso)](https://en.wikipedia.org/wiki/Inverted_index). Isso proveu a realização de buscas mais precisas e rápidas.
-Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida passando a ser uma lista de palavras(termos) que referenciam  os arquivos.
+Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida, passando a ser uma lista de palavras(termos) que referenciam os arquivos.
 
 ### Exemplo:
 
-**Dados os arquivos**
+**Dados dos arquivos**
 
 | **Nome**          | **Conteúdo**      |
 | :------------- | -------------: |
@@ -72,8 +72,8 @@ $ git clone <https://github.com/julioisaac/search.git>
 # Acesse a pasta do projeto
 $ cd search
 
-# Rode o script para contruir a imagem docker
-# (baixa dependencias, roda testes, idexa conteudo e cria a imagem docker)
+# Rode o script para construir a imagem docker
+# (baixa as dependências, roda os testes, indexa o conteúdo e cria a imagem docker)
 $ ./scripts/build.sh
 
 ```
@@ -94,16 +94,16 @@ Para desenvolver ou evoluir esse projeto, você vai precisar ter instalado em su
 
 ## Testes
 
-Assumindo que o projeto já tenha sido clonado você pode rodar os testes com o script a baixo.
+Assumindo que o projeto já tenha sido clonado, você pode rodar os testes com o script abaixo.
 
 ```bash
 # Rode os testes.
 $ ./scripts/tests.sh
 
 ```
-## Configuração
+## Configurações
 
-Para rodar a aplicação localmente você precisará configurar as seguintes variavéis de ambiente.
+Para rodar a aplicação localmente, você precisará configurar as seguintes variavéis de ambiente.
 A variável ORIGIN_DATA_PATH serve para definir o caminho da pasta onde estão os arquivos texto que serão sumarizados.
 A variável SEARCH_INDEX_PATH serve para definir o caminho da pasta onde o índice será salvo.
 ```bash
@@ -122,7 +122,7 @@ $ mvn clean package
 
 ## Indexando dados
 
-Ao rodar a aplicação a baixo os arquivos serão processados e o índice será gerado.
+Ao rodar a aplicação abaixo, os arquivos serão processados e o índice remissivo será gerado.
 ```bash
 # Indexando os arquivos
 $ java -jar target/search-indexer.jar
@@ -131,7 +131,7 @@ $ java -jar target/search-indexer.jar
 
 ## Testando um termo
 
-Ao rodar a aplicação a baixo passando alguma sentença a busca quantos e quais arquivos possuem os termos.
+Ao rodar a aplicação abaixo, passando alguma sentença, a busca retorna quantos e quais arquivos possuem os termos.
 ```bash
 # Buscando termos
 $ java -jar target/search-application.jar "walt disney"
@@ -144,13 +144,14 @@ $ java -jar target/search-application.jar "walt disney"
 
 A versão atual implementa a classe ```FileLoader``` responsável pelo carregamento dos arquivos texto do disco.
 
-Caso necessário mudar a origem dos dados a serem indexados deve se implementar a interface ```Loader```
+Caso necessário mudar a origem dos dados a serem indexados deve-se implementar a interface ```Loader```
+Veja exemplo abaixo:
 ```java
 // Exemplo
 public class BDLoader implements Loader {
 ...
 ```
-O BBLoader por sua vez seria carregado na Loaderfactory na classe de entrada```Indexer```
+O objeto ```BDLoader``` por sua vez seria carregado pela Loaderfactory
 ```java
 //Exemplo
 ...
@@ -162,15 +163,16 @@ List<IndexData> indexDataList = new LoaderFactory()
 
 ### Interface WordTransformer
 
-A versão atual implementa as classes ```SanitizeWordTransformer```  e ```StopWordTransformer```. As implementacoes aplicam algum tipo de tratamento a palavra antes de ser indexada.
+A versão atual implementa as classes ```SanitizeWordTransformer```  e ```StopWordTransformer```. As implementações aplicam algum tipo de tratamento à palavra antes de ser indexada.
 
-Caso necessário fazer outros tipos de tratamento a palavra deve se implementar a interface ```Transformer```
+Caso necessário fazer outros tipos de tratamento à palavra, deve-se implementar a interface ```Transformer```
+Veja exemplo abaixo:
 ```java
 // Exemplo
 public class LemmatizeTransformer implements WordTransformer {
 ...
 ```
-O LemmatizeTransformer por sua vez seria adicionada ao ```IndexBuilder``` responsavel pela criacao do índice remissivo e construida na classe de entrada```Indexer```
+O objeto ```LemmatizeTransformer``` por sua vez seria adicionado ao ```IndexBuilder``` responsável pela criação do índice remissivo
 ```java
 //Exemplo
 ...
@@ -183,6 +185,6 @@ Map<String, Set<String>> idx = new IndexBuilder.Builder()
 
 ## Sobre
 
-Desafio de busca proposto pelo time do luizalabs
+Desafio de busca proposto pelo time do luizalabs.
 
 
