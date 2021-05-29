@@ -8,7 +8,7 @@
 
 Desafio @luizalabs                                                                    
 ```
-
+[![CircleCI](https://circleci.com/gh/julioisaac/search.svg?style=svg&circle-token=70c2b456bc1ac593c5525fea8730892c64053b47)](https://app.circleci.com/pipelines/github/julioisaac/search)
 
 Biblioteca Java para sumarização de texto e busca por termos.
 O programa busca por uma sentença em todos [estes](https://github.com/julioisaac/archives/raw/main/movies.zip)
