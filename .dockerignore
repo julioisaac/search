@@ -4,3 +4,4 @@ target
 .git
 search.iml
 .gitignore
+.circleci
