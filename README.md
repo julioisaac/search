@@ -5,33 +5,32 @@
     \   \    |   __|   /  /_\  \   |      /     |  |     |   __   | 
 .----)   |   |  |____ /  _____  \  |  |\  \----.|  `----.|  |  |  | 
 |_______/    |_______/__/     \__\ | _| `._____| \______||__|  |__| 
-
-Desafio @luizalabs                                                                    
+                                                                   
 ```
 [![CircleCI](https://circleci.com/gh/julioisaac/search.svg?style=svg&circle-token=70c2b456bc1ac593c5525fea8730892c64053b47)](https://app.circleci.com/pipelines/github/julioisaac/search)
 
-Biblioteca Java para sumarização de texto e busca por termos.
-O programa busca por uma sentença em todos [estes](https://github.com/julioisaac/archives/raw/main/movies.zip)
-arquivos e exibe quantos e quais arquivos possuem a palavra-chave. A ordenação
-dos arquivos é apresentada em ordem crescente e alfabética.
+Experimental Java Library for text summarization and search terms.
+The program searches for a sentence in all [these](https://github.com/julioisaac/archives/raw/main/movies.zip)
+files and displays how many and which files have a keyword. the ordination
+of files is presented in ascending alphabetical order.
 
-# Abordagem
-A estratégia de otimização dos dados para busca foi criar um [índice remissivo (índice invertido ou índice reverso)](https://en.wikipedia.org/wiki/Inverted_index). Isso proveu a realização de buscas mais precisas e rápidas.
-Nesta aplicação o índice remissivo está sendo construído com base em uma lista de arquivos de texto(.txt) que por sua vez é processada e invertida, passando a ser uma lista de palavras(termos) que referenciam os arquivos.
+# Approach
+The data optimization strategy for searching was to create an [index (inverted index or reverse index)](https://en.wikipedia.org/wiki/Inverted_index). This provided for more accurate and faster searches.
+In this application, the index is being built based on a list of text files (.txt) which in turn is processed and inverted, becoming a list of words (terms) that refer to the files.
 
-### Exemplo:
+### Example:
 
-**Dados dos arquivos**
+**File data**
 
-| **Nome**          | **Conteúdo**      |
+| **Name**          | **Content**      |
 | :------------- | -------------: |
 | don-de-dios.txt           | don de dios 2005 robin                                                              |
 | hospital-de-urgencia.txt  | hospital de urgencia 1956 claude godard armando moreno tony leblanc                 |
 | the-real-robin-hood.txt   | the real robin hood 2010 ridley scott russell crowe cate blanchett m. david melvin  |
 
-**O índice remissivo teria esses dados**
+**The remissive index would have this data**
 
-| **Palavra**       | **Ocorrências nos arquivos**            |
+| **Word**       | **Files containing occurrences**            |
 | :-------------| -------------:                              |
 | cate          |   the-real-robin-hood.txt                   |
 | leblanc       |   hospital-de-urgencia.txt                  |
@@ -58,102 +57,103 @@ Nesta aplicação o índice remissivo está sendo construído com base em uma li
 | urgencia      |   hospital-de-urgencia.txt                  |
 | 1956          |   hospital-de-urgencia.txt                  |
 
-## Pré-requisitos (rodar no Docker)
+## Prerequisites (run on Docker)
 
-Antes de começar a usar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+Before you start using it, you will need to have the following tools installed on your machine:
 [Git](https://git-scm.com), [Docker](https://www.docker.com/).
 
-## Instalar
+
+## Install
 
 ```bash
-# Clone este repositório
+# Clone this repository
 $ git clone <https://github.com/julioisaac/search.git>
 
-# Acesse a pasta do projeto
+# Access the project folder
 $ cd search
 
-# Rode o script para construir a imagem docker
-# (baixa as dependências, roda os testes, indexa o conteúdo e cria a imagem docker)
+# Run the script to build the docker image
+# (download the dependencies, run the tests, index the content and build the docker image)
 $ ./scripts/build.sh
 
 ```
 
-## Teste busca
+## Search test
 
 ```bash
-# Execute o shell script passando algum termo para buscar.
+# Run the shell script passing some term to search for.
 $ ./scripts/search.sh "walt disney"
 ```
 
-# Desenvolvedor
+# Developer
 
-## Pré-requisitos (rodar local)
+## Prerequisites (run localhost)
 
-Para desenvolver ou evoluir esse projeto, você vai precisar ter instalado em sua máquina as seguintes ferramentas: [Java 11](https://www.java.com/),
-[Git](https://git-scm.com) e [Maven](https://maven.apache.org/).
+To develop or evolve this project, you will need to have the following tools installed on your machine: [Java 11](https://www.java.com/),
+[Git](https://git-scm.com) and [Maven](https://maven.apache.org/).
 
-## Testes
+## Tests
 
-Assumindo que o projeto já tenha sido clonado, você pode rodar os testes com o script abaixo.
+Assuming the project has already been cloned, you can run the tests with the script below.
 
 ```bash
-# Rode os testes.
+# Run the tests.
 $ ./scripts/tests.sh
 
 ```
-## Configurações
+## Settings
 
-Para rodar a aplicação localmente, você precisará configurar as seguintes variavéis de ambiente.
-A variável ORIGIN_DATA_PATH serve para definir o caminho da pasta onde estão os arquivos texto que serão sumarizados.
-A variável SEARCH_INDEX_PATH serve para definir o caminho da pasta onde o índice será salvo.
+To run the application localhost, you will need to configure the following environment variables.
+The ORIGIN_DATA_PATH variable is used to define the path of the folder where the text files to be summarized are located.
+The SEARCH_INDEX_PATH variable is used to define the path of the folder where the index will be saved.
 ```bash
 $ export ORIGIN_DATA_PATH=${SEU_PATH_DADOS}
 $ export SEARCH_INDEX_PATH=${SEU_PATH_INDEX}
 ```
 
-## Empacotando
+## Packing
 
-O comando maven irá criar na pasta target os jar's  _search-indexer.jar_ e _search-application.jar_ respectivamente usados para indexar os dados e buscar os termos.
+The maven command will create in the target folder the jar's _search-indexer.jar_ and _search-application.jar_ respectively used to index the data and search for terms.
 ```bash
-# Construindo os pacotes
+# Building the packages
 $ mvn clean package
 
 ```
 
-## Indexando dados
+## Indexing data
 
-Ao rodar a aplicação abaixo, os arquivos serão processados e o índice remissivo será gerado.
+When running the application below, the files will be processed and the index will be generated.
 ```bash
-# Indexando os arquivos
+# Indexing the files
 $ java -jar target/search-indexer.jar
 
 ```
 
-## Testando um termo
+## Testing a term
 
-Ao rodar a aplicação abaixo, passando alguma sentença, a busca retorna quantos e quais arquivos possuem os termos.
+When running the application below, passing a sentence, the search returns how many and which files have the terms.
 ```bash
-# Buscando termos
+# Searching terms
 $ java -jar target/search-application.jar "walt disney"
 
 ```
 
-## Implementação
+## Implementation
 
-### Interface Loader
+### Loader Interface
 
-A versão atual implementa a classe ```FileLoader``` responsável pelo carregamento dos arquivos texto do disco.
+The current version implements the ```FileLoader``` class responsible for loading text files from disk.
 
-Caso necessário mudar a origem dos dados a serem indexados deve-se implementar a interface ```Loader```
-Veja exemplo abaixo:
+If it is necessary to change the origin of the data to be indexed, the ```Loader``` interface must be implemented
+See example below:
 ```java
-// Exemplo
+// Example
 public class BDLoader implements Loader {
 ...
 ```
-O objeto ```BDLoader``` por sua vez seria carregado pela Loaderfactory
+The ```BDLoader``` object would in turn be loaded by the Loaderfactory
 ```java
-//Exemplo
+// Example
 ...
 List<IndexData> indexDataList = new LoaderFactory()
       .add(new BDLoader())
@@ -161,20 +161,20 @@ List<IndexData> indexDataList = new LoaderFactory()
 ...
 ```
 
-### Interface WordTransformer
+### WordTransformer Interface
 
-A versão atual implementa as classes ```SanitizeWordTransformer```  e ```StopWordTransformer```. As implementações aplicam algum tipo de tratamento à palavra antes de ser indexada.
+The current version implements the ```SanitizeWordTransformer``` and ```StopWordTransformer``` classes. Implementations apply some kind of treatment to the word before it is indexed.
 
-Caso necessário fazer outros tipos de tratamento à palavra, deve-se implementar a interface ```Transformer```
-Veja exemplo abaixo:
+If you need to do other types of word treatment, you must implement the ```Transformer``` interface
+See example below:
 ```java
-// Exemplo
+// Example
 public class LemmatizeTransformer implements WordTransformer {
 ...
 ```
-O objeto ```LemmatizeTransformer``` por sua vez seria adicionado ao ```IndexBuilder``` responsável pela criação do índice remissivo
+The ```LemmatizeTransformer``` object would in turn be added to the ```IndexBuilder``` responsible for creating the index
 ```java
-//Exemplo
+// Example
 ...
 Map<String, Set<String>> idx = new IndexBuilder.Builder()
       .addTransformer(new LemmatizeTransformer())
@@ -183,8 +183,8 @@ Map<String, Set<String>> idx = new IndexBuilder.Builder()
 ...
 ```
 
-## Sobre
+## About
 
-Desafio de busca proposto pelo time do luizalabs.
+Experimental project of indexing and textual search. There is no framework used, only pure Java.
 
 
